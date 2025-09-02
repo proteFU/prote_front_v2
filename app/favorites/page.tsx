@@ -1,5 +1,6 @@
 import PlayList from "@/components/PlayList"
 import MyMusic from "@/components/MyMusic"
+import SectionTitle from "@/components/SectionTitle"
 
 export default function Favorites() {
   const playlists = [
@@ -18,16 +19,15 @@ export default function Favorites() {
   ]
 
   return (
-    <div className="flex flex-col gap-6 p-4">
-      <div className="text-[20px]">PlayList</div>
-      <div className="flex overflow-x-auto gap-4">
+    <div className="flex flex-col gap-5">
+      <SectionTitle title="PlayList" />
+      <div className="flex overflow-x-auto gap-3 pl-4">
         {playlists.map((pl, idx) => (
           <PlayList key={idx} image={pl.image} title={pl.title} subtitle={pl.subtitle} />
         ))}
       </div>
-
-      <div className="text-[20px] mt-8">My Music Recap</div>
-      <div className="flex flex-col gap-y-4">
+      <SectionTitle title="My Music Recap" />
+      <div className="flex flex-col gap-y-4 pl-4 pr-4">
         {myMusics.map((music, idx) => (
           <MyMusic key={idx} image={music.image} title={music.title} subtitle={music.subtitle} />
         ))}
