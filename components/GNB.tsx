@@ -16,7 +16,7 @@ const navigation = [
     { name: "Profile", href: ["/profile", "/profile/my", "/profile/friends", "/profile/recent-playlists"], icon: profileIcon, activeIcon: profileIcon},
 ]
 
-const NavItem = ({ name, href, icon, activeIcon, pathname }: { name: string, href: string | string[], icon: any, activeIcon: any, pathname: string }) => {
+const NavItem = ({ name, href, icon, activeIcon, pathname }: { name: string, href: string | string[], icon: string, activeIcon: string, pathname: string }) => {
     const isActive = Array.isArray(href) ? href.includes(pathname) : href === pathname;
     const linkHref = Array.isArray(href) ? href[0] : href;
     return (

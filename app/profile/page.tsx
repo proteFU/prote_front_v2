@@ -30,13 +30,7 @@ const friends = [
     { id: 10, name: "Emily Brown", image: profileImage },
 ];
 
-const recentEmotions = [
-    { name: "Happy", image: profileImage, emotion: "happy" },
-    { name: "Sad", image: profileImage },
-    { name: "Angry", image: profileImage },
-    { name: "Angry", image: profileImage },
-    { name: "Angry", image: profileImage },
-];
+
 
 const recentPlaylists = [
     { id: 1, name: "Playlist 1", image: profileImage },

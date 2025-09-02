@@ -1,6 +1,27 @@
 import SectionTitle from "@/components/SectionTitle";
 import Image from "next/image";
 
+// 타입 정의
+interface Song {
+  id: number;
+  name: string;
+  image: string;
+  artist: string;
+}
+
+interface Playlist {
+  id: number;
+  name: string;
+  image: string;
+  madeby: string;
+}
+
+interface Emotion {
+  id: number;
+  name: string;
+  image: string;
+}
+
 const recommendedSongs = [
   { id: 1, name: "Song 1", image: "https://i.pinimg.com/236x/99/68/4e/99684ef58dd53fad550b0c00c0678d05.jpg", artist: "Artist 1" },
   { id: 2, name: "Song 2", image: "https://i.pinimg.com/236x/99/68/4e/99684ef58dd53fad550b0c00c0678d05.jpg", artist: "Artist 2" },
@@ -36,7 +57,7 @@ const recommendedEmotions = [
   { id: 5, name: "Excited", image: "https://i.pinimg.com/236x/99/68/4e/99684ef58dd53fad550b0c00c0678d05.jpg" },
 ]
 
-function RecommendedPlaylists({ playlist }: { playlist: any }) {
+function RecommendedPlaylists({ playlist }: { playlist: Playlist }) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 mb-4">
       <Image src={playlist.image} alt="Recommended Playlist" width={120} height={120} className="rounded-md w-30 h-30 object-cover" />
@@ -48,7 +69,7 @@ function RecommendedPlaylists({ playlist }: { playlist: any }) {
   )
 }
 
-function RecommendedSongs({ song }: { song: any }) {
+function RecommendedSongs({ song }: { song: Song }) {
   return (
     <div className="flex flex-col items-center justify-center gap-2 mb-4">
       <Image src={song.image} alt="Recommended Song" width={120} height={120} className="rounded-md w-30 h-30 object-cover" />
@@ -60,7 +81,7 @@ function RecommendedSongs({ song }: { song: any }) {
   )
 }
 
-function RecommendedEmotions({ emotion }: { emotion: any }) {
+function RecommendedEmotions({ emotion }: { emotion: Emotion }) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 mb-4">
