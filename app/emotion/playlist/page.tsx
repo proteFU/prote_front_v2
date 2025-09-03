@@ -71,9 +71,16 @@ const emotionLabels = {
 export default function EmotionPlaylist() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { playTrack, playPlaylist } = usePlayer();
+  const { playPlaylist } = usePlayer();
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
-  const [recommendedMusic, setRecommendedMusic] = useState<any[]>([]);
+  const [recommendedMusic, setRecommendedMusic] = useState<Array<{
+    id: string;
+    name: string;
+    artist: string;
+    image: string;
+    emotion: string;
+    intensity: number;
+  }>>([]);
   const [currentPlaying, setCurrentPlaying] = useState<string | null>(null);
 
   useEffect(() => {
@@ -83,10 +90,22 @@ export default function EmotionPlaylist() {
       setSelectedEmotions(emotionArray);
       
       // 감정별 음악 추천
-      const allMusic: any[] = [];
+      const allMusic: Array<{
+        id: string;
+        name: string;
+        artist: string;
+        image: string;
+        emotion: string;
+        intensity: number;
+      }> = [];
       emotionArray.forEach(emotion => {
         if (emotionMusic[emotion as keyof typeof emotionMusic]) {
-          allMusic.push(...emotionMusic[emotion as keyof typeof emotionMusic]);
+          const musicWithEmotion = emotionMusic[emotion as keyof typeof emotionMusic].map(track => ({
+            ...track,
+            emotion,
+            intensity: 5
+          }));
+          allMusic.push(...musicWithEmotion);
         }
       });
       

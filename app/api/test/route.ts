@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // API 테스트 엔드포인트
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     return NextResponse.json({
       success: true,

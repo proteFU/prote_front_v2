@@ -20,7 +20,7 @@ export async function GET() {
       ...status,
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Mock DB 상태 조회 실패' },
       { status: 500 }

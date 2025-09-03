@@ -1,7 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Mock 플레이리스트 데이터 저장소
-let playlists: any[] = [
+interface Track {
+  id: string;
+  name: string;
+  artist: string;
+}
+
+interface Playlist {
+  id: string;
+  name: string;
+  description: string;
+  user_id: string;
+  tracks: Track[];
+  emotion: string | null;
+  created_at: string;
+}
+
+const playlists: Playlist[] = [
   {
     id: '1',
     name: 'My Happy Playlist',

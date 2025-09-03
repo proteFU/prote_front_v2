@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Mock 감정 데이터 저장소
-let emotionHistory: any[] = [];
+interface EmotionData {
+  id: string;
+  user_id: string;
+  emotion: string;
+  intensity: number;
+  description?: string;
+  created_at: string;
+}
+
+let emotionHistory: EmotionData[] = [];
 
 // 감정 분석 및 음악 추천
 export async function POST(request: NextRequest) {
@@ -56,7 +65,7 @@ async function getEmotionBasedMusic(emotion: string, intensity: number) {
     nostalgic: ['indie', 'folk', 'alternative'],
   };
 
-  const genres = emotionMap[emotion] || ['pop'];
+  // const genres = emotionMap[emotion] || ['pop'];
   
   // 실제로는 Spotify API를 호출하지만, 여기서는 샘플 데이터 반환
   return [

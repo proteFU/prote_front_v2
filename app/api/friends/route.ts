@@ -37,7 +37,7 @@ const mockFriends = [
 ];
 
 // 친구 목록 조회
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     return NextResponse.json({
       success: true,

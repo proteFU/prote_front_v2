@@ -6,7 +6,18 @@ import SectionTitle from '@/components/SectionTitle';
 import Button from '@/components/ui/Button';
 
 export default function MyProfile() {
-    const [userData, setUserData] = useState<any>(null);
+    const [userData, setUserData] = useState<{
+        email: string;
+        name: string;
+        image: string;
+        bio: string;
+        preferences: {
+            joinDate: string;
+            totalPlaylists: number;
+            totalSongs: number;
+            favoriteGenres: string[];
+        };
+    } | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -16,10 +27,12 @@ export default function MyProfile() {
             email: 'guest@example.com',
             image: 'https://picsum.photos/300/300?random=100',
             bio: '음악을 사랑하는 사용자입니다.',
-            joinDate: '2024년 1월',
-            totalPlaylists: 12,
-            totalSongs: 156,
-            favoriteGenres: ['Pop', 'Rock', 'Electronic']
+            preferences: {
+                joinDate: '2024년 1월',
+                totalPlaylists: 12,
+                totalSongs: 156,
+                favoriteGenres: ['Pop', 'Rock', 'Electronic']
+            }
         };
         
         setTimeout(() => {
@@ -38,6 +51,14 @@ export default function MyProfile() {
         );
     }
 
+    if (!userData) {
+        return (
+            <div className="flex flex-col items-center justify-center h-full w-full gap-4 p-4">
+                <div className="text-white">사용자 데이터를 불러오는 중...</div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col items-center justify-center h-full w-full p-4">
             {/* 프로필 헤더 */}
@@ -52,7 +73,7 @@ export default function MyProfile() {
                 <div className="text-center">
                     <h1 className="text-2xl font-bold text-white">{userData.name}</h1>
                     <p className="text-gray-400">{userData.email}</p>
-                    <p className="text-sm text-gray-500 mt-2">{userData.joinDate} 가입</p>
+                    <p className="text-sm text-gray-500 mt-2">{userData.preferences.joinDate} 가입</p>
                 </div>
             </div>
 
@@ -60,11 +81,11 @@ export default function MyProfile() {
             <SectionTitle title="My Stats" />
             <div className="grid grid-cols-2 gap-4 w-full max-w-md mb-8">
                 <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold text-purple-400">{userData.totalPlaylists}</div>
+                    <div className="text-2xl font-bold text-purple-400">{userData.preferences.totalPlaylists}</div>
                     <div className="text-sm text-gray-400">플레이리스트</div>
                 </div>
                 <div className="bg-white/10 rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold text-purple-400">{userData.totalSongs}</div>
+                    <div className="text-2xl font-bold text-purple-400">{userData.preferences.totalSongs}</div>
                     <div className="text-sm text-gray-400">저장된 곡</div>
                 </div>
             </div>
@@ -72,7 +93,7 @@ export default function MyProfile() {
             {/* 선호 장르 */}
             <SectionTitle title="Favorite Genres" />
             <div className="flex flex-wrap gap-2 mb-8">
-                {userData.favoriteGenres.map((genre: string, index: number) => (
+                {userData.preferences.favoriteGenres.map((genre: string, index: number) => (
                     <span 
                         key={index}
                         className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm"

@@ -2,8 +2,6 @@
 
 import SectionTitle from "@/components/SectionTitle";
 import Image from "next/image";
-import MusicPlayer from "@/components/MusicPlayer";
-import EmotionTracker from "@/components/EmotionTracker";
 import { usePlayer } from "@/contexts/PlayerContext";
 import { useRouter } from "next/navigation";
 

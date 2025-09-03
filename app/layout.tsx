@@ -4,8 +4,6 @@ import "./globals.css";
 import GNB from "@/components/GNB";
 import Title from "@/components/Title";
 import { PlayerProvider } from "@/contexts/PlayerContext";
-import MiniPlayer from "@/components/MiniPlayer";
-import FullPlayer from "@/components/FullPlayer";
 import { PlayerWrapper } from "@/components/PlayerWrapper";
 
 
