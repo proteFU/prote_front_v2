@@ -1,21 +1,23 @@
+"use client"
+
 import PlayList from "@/components/PlayList"
 import MyMusic from "@/components/MyMusic"
 import SectionTitle from "@/components/SectionTitle"
 
 export default function Favorites() {
   const playlists = [
-    { image: "/playlist/playlist1.svg", title: "이무 생각 없이 듣는", subtitle: "고구마빵" },
-    { image: "/playlist/playlist2.svg", title: "City Pop Playlist", subtitle: "I luv 4 u" },
-    { image: "/playlist/playlist3.svg", title: "어디서 들어본 J-POP", subtitle: "kitty" },
+    { image: "/playlist/playlist1.svg", title: "My Happy Playlist", subtitle: "Made by Guest User" },
+    { image: "/playlist/playlist2.svg", title: "Chill Vibes", subtitle: "Made by Guest User" },
+    { image: "/playlist/playlist3.svg", title: "Workout Mix", subtitle: "Made by Guest User" },
   ]
 
   const myMusics = [
-    { image: "/song/song1.svg", title: "주저하는 연인들을 위해", subtitle: "잔나비" },
-    { image: "/song/song2.svg", title: "머리어깨무릎발 (feat.원슈타인)", subtitle: "이하이, 원슈타인" },
-    { image: "/song/song3.svg", title: "Checklist (feat.Chromeo)", subtitle: "MAX" },
-    { image: "/song/song4.svg", title: "ed", subtitle: "카우션" },
-    { image: "/song/song5.svg", title: "I Don’t Think That I Like Her", subtitle: "Charlie Puth" },
-    { image: "/song/song6.svg", title: "너의 로맨스에 내 이름을 써줘 (Prod. IVY GROUND)", subtitle: "104 (백사)" },
+    { image: "/song/song1.svg", title: "Blinding Lights", subtitle: "The Weeknd" },
+    { image: "/song/song2.svg", title: "Watermelon Sugar", subtitle: "Harry Styles" },
+    { image: "/song/song3.svg", title: "Levitating", subtitle: "Dua Lipa" },
+    { image: "/song/song4.svg", title: "Good 4 U", subtitle: "Olivia Rodrigo" },
+    { image: "/song/song5.svg", title: "Stay", subtitle: "The Kid LAROI & Justin Bieber" },
+    { image: "/song/song6.svg", title: "Industry Baby", subtitle: "Lil Nas X" },
   ]
 
   return (
