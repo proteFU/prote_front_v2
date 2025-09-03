@@ -2,21 +2,20 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-// import Image from "next/image";
+import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
-
 // const profileImage = `https://picsum.photos/300/300?random=200`;
 
 // 감정 데이터
 const emotions = [
-  { id: 'happy', label: 'Happy', color: 'rgba(255, 223, 0, 0.8)', emoji: '😊' },
-  { id: 'anxious', label: 'Anxious', color: 'rgba(255, 165, 0, 0.8)', emoji: '😰' },
-  { id: 'comfortable', label: 'Comfortable', color: 'rgba(0, 255, 150, 0.8)', emoji: '😌' },
-  { id: 'sad', label: 'Sad', color: 'rgba(0, 150, 255, 0.8)', emoji: '😢' },
-  { id: 'nostalgic', label: 'Nostalgic', color: 'rgba(138, 43, 226, 0.8)', emoji: '😌' },
-  { id: 'excited', label: 'Excited', color: 'rgba(255, 0, 0, 0.8)', emoji: '🤩' },
-  { id: 'remorseful', label: 'Remorseful', color: 'rgba(75, 0, 130, 0.8)', emoji: '😔' },
-  { id: 'lonely', label: 'Lonely', color: 'rgba(105, 105, 105, 0.8)', emoji: '😞' }
+  { id: 'happy', label: 'Happy', color: 'rgba(255, 223, 0, 0.8)' },
+  { id: 'anxious', label: 'Anxious', color: 'rgba(255, 165, 0, 0.8)' },
+  { id: 'comfortable', label: 'Comfortable', color: 'rgba(0, 255, 150, 0.8)' },
+  { id: 'sad', label: 'Sad', color: 'rgba(0, 150, 255, 0.8)' },
+  { id: 'nostalgic', label: 'Nostalgic', color: 'rgba(138, 43, 226, 0.8)' },
+  { id: 'excited', label: 'Excited', color: 'rgba(255, 0, 0, 0.8)' },
+  { id: 'remorseful', label: 'Remorseful', color: 'rgba(75, 0, 130, 0.8)'},
+  { id: 'lonely', label: 'Lonely', color: 'rgba(105, 105, 105, 0.8)' }
 ];
 
 
@@ -45,41 +44,20 @@ export default function Emotion() {
     <div className="min-h-screen p-4">
       <SectionTitle title="Each feeling shines as your color" />
 
-      {/* 수정 구슬 */}
-      <div className="flex justify-center mb-12">
-        <div className="relative w-80 h-80">
-          {/* 중앙 구슬 */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-100 to-gray-300 shadow-inner flex items-center justify-center">
-            <div className="w-32 h-32 rounded-full bg-white shadow-lg flex items-center justify-center">
-              <span className="text-4xl">🔮</span>
-            </div>
-          </div>
-          
-          {/* 감정별 빛 효과 */}
-          {selectedEmotions.map((emotionId, index) => {
-            const emotion = emotions.find(e => e.id === emotionId);
-            if (!emotion) return null;
-            
-            const angle = (360 / emotions.length) * emotions.findIndex(e => e.id === emotionId);
-            const radius = 120;
-            const x = Math.cos((angle * Math.PI) / 180) * radius;
-            const y = Math.sin((angle * Math.PI) / 180) * radius;
-            
-            return (
-              <div
-                key={emotionId}
-                className="absolute w-16 h-16 rounded-full animate-pulse"
-                style={{
-                  background: `radial-gradient(circle, ${emotion.color} 0%, transparent 70%)`,
-                  left: `calc(50% + ${x}px - 32px)`,
-                  top: `calc(50% + ${y}px - 32px)`,
-                  animationDelay: `${index * 0.2}s`,
-                  animationDuration: '2s'
-                }}
-              />
-            );
-          })}
-        </div>
+      {/* 3D 수정 구슬 */}
+      <div className="flex justify-center mb-12 relative">
+        <Image src="/CrystalBall.png"
+        alt="Crystal Ball" width={160} height={160}
+        className="w-40 h-40 z-10 object-contain"
+        />
+        {selectedEmotions.map((emotionId) => {
+          const emotion = emotions.find(e => e.id === emotionId);
+          return emotion ? (
+            <div key={emotionId} className="w-32 h-32 absolute top-5% left-50% rounded-full blur-2xl opacity-60" style={{ backgroundColor: emotion.color }} />
+          ) : null;
+        })}
+        
+        
       </div>
 
       {/* 감정 선택 버튼들 */}
@@ -99,7 +77,6 @@ export default function Emotion() {
                 : undefined
             }}
           >
-            <div className="text-lg mb-1">{emotion.emoji}</div>
             <div className="text-xs">{emotion.label}</div>
           </button>
         ))}
@@ -120,7 +97,7 @@ export default function Emotion() {
       {/* 선택된 감정이 없을 때 안내 메시지 */}
       {selectedEmotions.length === 0 && (
         <div className="text-center text-gray-400 mt-8">
-          <p>감정을 선택하고 Continue를 눌러보세요</p>
+          <p>Choose your emotions and click Continue</p>
         </div>
       )}
     </div>
