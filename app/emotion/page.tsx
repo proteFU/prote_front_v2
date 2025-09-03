@@ -41,65 +41,62 @@ export default function Emotion() {
   };
 
   return (
-    <div className="min-h-screen p-4">
-      <SectionTitle title="Each feeling shines as your color" />
+    <div className="flex flex-col p-2 overflow-hidden" style={{ height: 'calc(80vh - 4rem)' }}>
+      <div className="flex-shrink-0">
+        <SectionTitle title="Each feeling shines as your color" />
+      </div>
 
       {/* 3D 수정 구슬 */}
-      <div className="flex justify-center mb-12 relative">
+      <div className="flex-1 flex items-center justify-center relative min-h-0">
         <Image src="/CrystalBall.png"
-        alt="Crystal Ball" width={160} height={160}
-        className="w-40 h-40 z-10 object-contain"
+        alt="Crystal Ball" width={120} height={120}
+        className="w-28 h-28 z-10 object-contain"
         />
         {selectedEmotions.map((emotionId) => {
           const emotion = emotions.find(e => e.id === emotionId);
           return emotion ? (
-            <div key={emotionId} className="w-32 h-32 absolute top-5% left-50% rounded-full blur-2xl opacity-60" style={{ backgroundColor: emotion.color }} />
+            <div key={emotionId} className="w-20 h-20 absolute top-5% left-50% rounded-full blur-2xl opacity-60" style={{ backgroundColor: emotion.color }} />
           ) : null;
         })}
-        
-        
       </div>
 
       {/* 감정 선택 버튼들 */}
-      <div className="grid grid-cols-4 gap-3 mb-8 max-w-md mx-auto">
-        {emotions.map((emotion) => (
-          <button
-            key={emotion.id}
-            onClick={() => toggleEmotion(emotion.id)}
-            className={`p-3 rounded-lg text-white text-sm font-medium transition-all duration-300 ${
-              selectedEmotions.includes(emotion.id)
-                ? 'ring-2 ring-white scale-110'
-                : 'bg-gray-600 hover:bg-gray-500'
-            }`}
-            style={{
-              backgroundColor: selectedEmotions.includes(emotion.id) 
-                ? emotion.color.replace('0.8', '1') 
-                : undefined
-            }}
-          >
-            <div className="text-xs">{emotion.label}</div>
-          </button>
-        ))}
+      <div className="flex-shrink-0 mb-2">
+        <div className="grid grid-cols-4 gap-2 max-w-sm mx-auto mb-4">
+          {emotions.map((emotion) => (
+            <button
+              key={emotion.id}
+              onClick={() => toggleEmotion(emotion.id)}
+              className={`p-3 rounded-lg text-white text-xs font-medium transition-all duration-300 min-h-[3rem] flex items-center justify-center ${
+                selectedEmotions.includes(emotion.id)
+                  ? 'ring-2 ring-white scale-110'
+                  : 'bg-gray-600 hover:bg-gray-500'
+              }`}
+              style={{
+                backgroundColor: selectedEmotions.includes(emotion.id) 
+                  ? emotion.color.replace('0.8', '1') 
+                  : undefined
+              }}
+            >
+              <span className="text-xs leading-tight text-center break-words">{emotion.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Continue 버튼 */}
-      {selectedEmotions.length > 0 && (
-        <div className="text-center mb-8">
+      {/* Continue 버튼 또는 안내 메시지 */}
+      <div className="flex-shrink-0 text-center">
+        {selectedEmotions.length > 0 ? (
           <button
             onClick={handleContinue}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 text-sm"
           >
             Continue
           </button>
-        </div>
-      )}
-
-      {/* 선택된 감정이 없을 때 안내 메시지 */}
-      {selectedEmotions.length === 0 && (
-        <div className="text-center text-gray-400 mt-8">
-          <p>Choose your emotions and click Continue</p>
-        </div>
-      )}
+        ) : (
+          <p className="text-gray-400 text-xs">Choose your emotions and click Continue</p>
+        )}
+      </div>
     </div>
   );
 }
