@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import { usePlayer } from '@/contexts/PlayerContext';
@@ -68,12 +68,12 @@ const emotionLabels = {
   lonely: 'Lonely'
 };
 
-export default function EmotionPlaylist() {
+function EmotionPlaylistContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { playTrack, playPlaylist } = usePlayer();
+  const { playPlaylist } = usePlayer();
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
-  const [recommendedMusic, setRecommendedMusic] = useState<any[]>([]);
+  const [recommendedMusic, setRecommendedMusic] = useState<Array<{id: string, name: string, artist: string, image: string}>>([]);
   const [currentPlaying, setCurrentPlaying] = useState<string | null>(null);
 
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function EmotionPlaylist() {
       setSelectedEmotions(emotionArray);
       
       // 감정별 음악 추천
-      const allMusic: any[] = [];
+      const allMusic: Array<{id: string, name: string, artist: string, image: string}> = [];
       emotionArray.forEach(emotion => {
         if (emotionMusic[emotion as keyof typeof emotionMusic]) {
           allMusic.push(...emotionMusic[emotion as keyof typeof emotionMusic]);
@@ -115,7 +115,7 @@ export default function EmotionPlaylist() {
       setCurrentPlaying(musicId);
       const musicIndex = recommendedMusic.findIndex(m => m.id === musicId);
       console.log('플레이리스트 재생 시작:', musicIndex);
-      playPlaylist(recommendedMusic, musicIndex, true); // 사용자 클릭이므로 자동 재생 허용
+       playPlaylist(recommendedMusic, musicIndex, true); // 사용자 클릭이므로 자동 재생 허용
     } else {
       console.log('음악을 찾을 수 없음:', musicId);
     }
@@ -231,5 +231,15 @@ export default function EmotionPlaylist() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function EmotionPlaylist() {
+  return (
+    <Suspense fallback={<div className="min-h-screen p-4 flex items-center justify-center">
+      <div className="text-white text-xl">Loading...</div>
+    </div>}>
+      <EmotionPlaylistContent />
+    </Suspense>
   );
 }

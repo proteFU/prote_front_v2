@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // 사용자 프로필 조회
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('user_id') || 'guest@example.com';
+    // const { searchParams } = new URL(request.url);
+    // const userId = searchParams.get('user_id') || 'guest@example.com';
 
     // Mock 사용자 데이터
     const userData = {

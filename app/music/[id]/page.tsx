@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { usePlayer } from '@/contexts/PlayerContext';
 
@@ -23,7 +23,7 @@ export default function MusicDetailPage() {
     currentTrack, 
     isPlaying, 
     playlist, 
-    currentTrackIndex,
+    // currentTrackIndex,
     togglePlay, 
     playNext, 
     playPrevious,
@@ -41,7 +41,7 @@ export default function MusicDetailPage() {
   const [trackIndex, setTrackIndex] = useState(-1);
 
   // Mock 데이터 (실제로는 API에서 가져올 수 있음)
-  const mockTracks: Track[] = [
+  const mockTracks: Track[] = useMemo(() => [
     {
       id: '1',
       name: 'Blinding Lights',
@@ -92,7 +92,7 @@ export default function MusicDetailPage() {
       genre: 'Pop',
       year: 2021
     }
-  ];
+  ], []);
 
   useEffect(() => {
     const trackId = params.id as string;
@@ -108,7 +108,7 @@ export default function MusicDetailPage() {
         setTrackIndex(index);
       }
     }
-  }, [params.id, playlist]);
+  }, [params.id, playlist, mockTracks]);
 
   const handlePlay = () => {
     if (track) {

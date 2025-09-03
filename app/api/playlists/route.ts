@@ -1,15 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 // Mock 플레이리스트 데이터 저장소
-let playlists: any[] = [
+interface Playlist {
+  id: string;
+  name: string;
+  description: string;
+  image?: string;
+  user_id: string;
+  tracks: Array<{
+    id: string;
+    name: string;
+    artist: string;
+    image: string;
+  }>;
+  emotion?: string;
+  created_at: string;
+}
+
+const playlists: Playlist[] = [
   {
     id: '1',
     name: 'My Happy Playlist',
     description: '행복한 기분일 때 듣는 플레이리스트',
     user_id: 'guest@example.com',
     tracks: [
-      { id: '1', name: 'Happy', artist: 'Pharrell Williams' },
-      { id: '2', name: 'Can\'t Stop the Feeling!', artist: 'Justin Timberlake' }
+      { id: '1', name: 'Happy', artist: 'Pharrell Williams', image: 'https://picsum.photos/300/300?random=1' },
+      { id: '2', name: 'Can\'t Stop the Feeling!', artist: 'Justin Timberlake', image: 'https://picsum.photos/300/300?random=2' }
     ],
     emotion: 'happy',
     created_at: new Date(Date.now() - 86400000).toISOString(),
@@ -20,8 +36,8 @@ let playlists: any[] = [
     description: '평온한 시간을 위한 플레이리스트',
     user_id: 'guest@example.com',
     tracks: [
-      { id: '3', name: 'Perfect', artist: 'Ed Sheeran' },
-      { id: '4', name: 'All of Me', artist: 'John Legend' }
+      { id: '3', name: 'Perfect', artist: 'Ed Sheeran', image: 'https://picsum.photos/300/300?random=3' },
+      { id: '4', name: 'All of Me', artist: 'John Legend', image: 'https://picsum.photos/300/300?random=4' }
     ],
     emotion: 'calm',
     created_at: new Date(Date.now() - 172800000).toISOString(),

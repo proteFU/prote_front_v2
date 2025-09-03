@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-interface EmotionData {
-  emotion: string;
-  intensity: number;
-  description: string;
-}
+// interface EmotionData {
+//   emotion: string;
+//   intensity: number;
+//   description: string;
+// }
 
 export default function EmotionTracker() {
   const [emotion, setEmotion] = useState('');

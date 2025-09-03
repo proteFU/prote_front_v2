@@ -24,7 +24,7 @@ export default function FullPlayer({
   onTogglePlay, 
   onClose 
 }: FullPlayerProps) {
-  const { currentTime, duration, seekTo, playlist, currentTrackIndex, playNext, playPrevious } = usePlayer();
+  const { currentTime, duration, seekTo, playlist, playNext, playPrevious } = usePlayer();
   const [showFullScreenLyrics, setShowFullScreenLyrics] = useState(false);
 
   if (!isVisible || !currentTrack) return null;
