@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from "next/image";
+// import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
 
-const profileImage = `https://picsum.photos/300/300?random=200`;
+// const profileImage = `https://picsum.photos/300/300?random=200`;
 
 // 감정 데이터
 const emotions = [
