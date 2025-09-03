@@ -5,56 +5,36 @@ import rightArrow from "@/public/rightArrow.svg";
 import SectionTitle from "@/components/SectionTitle";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts"
 import { useRouter } from "next/navigation";
+import { profileImage, moodData, friends, recentPlaylists } from "@/data/ProfileData";
+import { Friend, Playlist } from "@/app/types/Profile";
+import { useEffect, useState } from "react";
 
-const profileImage = `https://i.pinimg.com/236x/99/68/4e/99684ef58dd53fad550b0c00c0678d05.jpg`;
-
-const moodData = [
-    { name: 'Joy', value: 85 },
-    { name: 'Melancholy', value: 25 },
-    { name: 'Passion', value: 75 },
-    { name: 'Serenity', value: 60 },
-    { name: 'Nostalgia', value: 45 },
-    { name: 'Euphoria', value: 90 },
-];
-
-const friends = [
-    { id: 1, name: "John Doe", image: profileImage },
-    { id: 2, name: "Mike Smith", image: profileImage },
-    { id: 3, name: "Sarah Johnson", image: profileImage },
-    { id: 4, name: "David Lee", image: profileImage },
-    { id: 5, name: "Emily Brown", image: profileImage },
-    { id: 6, name: "Emily Brown", image: profileImage },
-    { id: 7, name: "Emily Brown", image: profileImage },
-    { id: 8, name: "Emily Brown", image: profileImage },
-    { id: 9, name: "Emily Brown", image: profileImage },
-    { id: 10, name: "Emily Brown", image: profileImage },
-];
-
-
-
-const recentPlaylists = [
-    { id: 1, name: "Playlist 1", image: profileImage },
-    { id: 2, name: "Playlist 2", image: profileImage },
-    { id: 3, name: "Playlist 3", image: profileImage },
-    { id: 4, name: "Playlist 4", image: profileImage },
-    { id: 5, name: "Playlist 5", image: profileImage },
-    { id: 6, name: "Playlist 6", image: profileImage },
-    { id: 7, name: "Playlist 7", image: profileImage },
-    { id: 8, name: "Playlist 8", image: profileImage },
-    { id: 9, name: "Playlist 9", image: profileImage },
-    { id: 10, name: "Playlist 10", image: profileImage },
-];
 
 export default function Profile() {
     const router = useRouter();
+    const [mounted, setMounted] = useState(false);
+    
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) {
+        return (
+            <div className="flex flex-col items-center justify-center h-full w-full gap-4 p-4">
+                <div className="w-full h-10 px-4 py-2 rounded-md border border-gray-300 bg-gray-200 animate-pulse" />
+                <div className="w-full h-10 px-4 py-2 rounded-md border border-gray-300 bg-gray-200 animate-pulse" />
+                <div className="w-full h-10 px-4 py-2 rounded-md bg-gray-200 animate-pulse" />
+            </div>
+        );
+    }
     return (
         <div className="flex flex-col items-center justify-center h-full w-full">
             <div className="flex flex-row justify-between items-center w-full p-4 pb-4" onClick={() => router.push("/profile/my")}>
                 <div className="flex flex-row gap-6 items-center">
                     <Image src={profileImage} alt="profile" width={64} height={64} className="rounded-full w-16 h-16 object-cover" />
                     <div className="flex flex-col">
-                        <p className="text-xl font-bold">John Dae</p> {/* userName */}
-                        <p className="text-sm text-gray-500">john._xae</p> {/* userID */}
+                        <p className="text-xl font-bold">Guest User</p>
+                        <p className="text-sm text-gray-500">guest@example.com</p>
                     </div>
                 </div>
                 <Image src={rightArrow} alt="rightArrow" width={24} height={24} className="w-6 h-6" />
@@ -92,9 +72,9 @@ export default function Profile() {
             <SectionTitle title="Friends" href="/profile/friends" />
             <div className="w-full overflow-x-auto pb-2">
                 <div className="flex flex-row items-center gap-1 pl-4 min-w-max">
-                    {friends.map((friend) => (
+                    {friends.map((friend: Friend) => (
                         <div className="flex flex-col gap-2 items-center min-w-[80px] flex-shrink-0" key={friend.id}>
-                            <Image src={friend.image} alt="profile" width={64} height={64} className="rounded-full w-16 h-16 object-cover" />
+                            <Image src={friend.image || profileImage} alt="profile" width={64} height={64} className="rounded-full w-16 h-16 object-cover" />
                             <p className="text-sm text-center">{friend.name}</p>
                         </div>
                     ))}
@@ -103,9 +83,9 @@ export default function Profile() {
             <SectionTitle title="Recent Playlist" href="/profile/recent-playlists" />
             <div className="w-full overflow-x-auto pb-2">
                 <div className="flex flex-row items-center gap-4 pl-4 min-w-max">
-                    {recentPlaylists.map((playlist) => (
+                    {recentPlaylists.map((playlist: Playlist) => (
                         <div className="flex flex-col gap-2 items-center min-w-[100px] flex-shrink-0 mb-4" key={playlist.id}>
-                            <Image src={playlist.image} alt="playlist" width={100} height={100} className="rounded-md w-25 h-25 object-cover" />
+                            <Image src={playlist.image || profileImage} alt="playlist" width={100} height={100} className="rounded-md w-25 h-25 object-cover" />
                             <p className="text-sm text-center">{playlist.name}</p>
                         </div>
                     ))}

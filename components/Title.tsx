@@ -46,7 +46,7 @@ export default function Title() {
             <div className="flex flex-row items-center justify-between p-4">
                 <h1 className="text-2xl font-bold">{getPageTitle(pathname)}</h1>
                 <Image
-                src={`https://i.pinimg.com/236x/99/68/4e/99684ef58dd53fad550b0c00c0678d05.jpg`}
+                src={`https://picsum.photos/300/300?random=300`}
                 alt="profile" 
                 width={32} 
                 height={32} 

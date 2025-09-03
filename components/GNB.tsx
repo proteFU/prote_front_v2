@@ -9,6 +9,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 const navigation = [
     { name: "Home", href: "/", icon: homeIcon, activeIcon: homeIcon},
     { name: "Emotion", href: "/emotion", icon: emotionIcon, activeIcon: emotionIcon},
@@ -37,6 +38,7 @@ const NavItem = ({ name, href, icon, activeIcon, pathname }: { name: string, hre
 export default function GNB() {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
+
 
     useEffect(() => {
         setMounted(true);
