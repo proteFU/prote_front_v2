@@ -103,7 +103,7 @@ export default function CrystalBallCanvas({ modelPath = "/CrystalBall/crystal_ba
       scene.traverse((obj) => {
         const mesh = obj as THREE.Mesh;
         if (mesh.geometry) mesh.geometry.dispose?.();
-        const material = (mesh as any).material as THREE.Material | THREE.Material[] | undefined;
+        const material = (mesh as THREE.Mesh).material as THREE.Material | THREE.Material[] | undefined;
         if (material) {
           if (Array.isArray(material)) {
             material.forEach(m => m.dispose?.());
