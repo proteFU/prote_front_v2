@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
+import CrystalBallCanvas from "@/components/CrystalBall";
 // const profileImage = `https://picsum.photos/300/300?random=200`;
 
 // 감정 데이터
@@ -14,7 +15,7 @@ const emotions = [
   { id: 'sad', label: 'Sad', color: 'rgba(0, 150, 255, 0.8)' },
   { id: 'nostalgic', label: 'Nostalgic', color: 'rgba(138, 43, 226, 0.8)' },
   { id: 'excited', label: 'Excited', color: 'rgba(255, 0, 0, 0.8)' },
-  { id: 'remorseful', label: 'Remorseful', color: 'rgba(75, 0, 130, 0.8)'},
+  { id: 'remorseful', label: 'Remorseful', color: 'rgba(75, 0, 130, 0.8)' },
   { id: 'lonely', label: 'Lonely', color: 'rgba(105, 105, 105, 0.8)' }
 ];
 
@@ -25,8 +26,8 @@ export default function Emotion() {
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
 
   const toggleEmotion = (emotionId: string) => {
-    setSelectedEmotions(prev => 
-      prev.includes(emotionId) 
+    setSelectedEmotions(prev =>
+      prev.includes(emotionId)
         ? prev.filter(id => id !== emotionId)
         : [...prev, emotionId]
     );
@@ -34,11 +35,15 @@ export default function Emotion() {
 
   const handleContinue = () => {
     if (selectedEmotions.length === 0) return;
-    
+
     // 선택된 감정들을 쿼리 파라미터로 전달하여 새 페이지로 이동
     const emotionsParam = selectedEmotions.join(',');
     router.push(`/emotion/playlist?emotions=${emotionsParam}`);
   };
+
+  const glowColors = emotions
+    .filter(e => selectedEmotions.includes(e.id))
+    .map(e => e.color);
 
   return (
     <div className="flex flex-col p-2 overflow-hidden" style={{ height: 'calc(80vh - 4rem)' }}>
@@ -47,17 +52,12 @@ export default function Emotion() {
       </div>
 
       {/* 3D 수정 구슬 */}
-      <div className="flex-1 flex items-center justify-center relative min-h-0">
-        <Image src="/CrystalBall.png"
-        alt="Crystal Ball" width={120} height={120}
-        className="w-28 h-28 z-10 object-contain"
+      <div className="flex-1 flex items-start justify-center relative min-h-0">
+        <CrystalBallCanvas
+          className="w-full h-full -translate-y-10"
+          modelPath="/CrystalBall/crystal_ball.glb"
+          glowColors={glowColors}
         />
-        {selectedEmotions.map((emotionId) => {
-          const emotion = emotions.find(e => e.id === emotionId);
-          return emotion ? (
-            <div key={emotionId} className="w-20 h-20 absolute top-5% left-50% rounded-full blur-2xl opacity-60" style={{ backgroundColor: emotion.color }} />
-          ) : null;
-        })}
       </div>
 
       {/* 감정 선택 버튼들 */}
@@ -67,14 +67,13 @@ export default function Emotion() {
             <button
               key={emotion.id}
               onClick={() => toggleEmotion(emotion.id)}
-              className={`p-3 rounded-lg text-white text-xs font-medium transition-all duration-300 min-h-[3rem] flex items-center justify-center ${
-                selectedEmotions.includes(emotion.id)
-                  ? 'ring-2 ring-white scale-110'
-                  : 'bg-gray-600 hover:bg-gray-500'
-              }`}
+              className={`p-3 rounded-lg text-white text-xs font-medium transition-all duration-300 min-h-[3rem] flex items-center justify-center ${selectedEmotions.includes(emotion.id)
+                ? 'ring-2 ring-white scale-110'
+                : 'bg-gray-600 hover:bg-gray-500'
+                }`}
               style={{
-                backgroundColor: selectedEmotions.includes(emotion.id) 
-                  ? emotion.color.replace('0.8', '1') 
+                backgroundColor: selectedEmotions.includes(emotion.id)
+                  ? emotion.color.replace('0.8', '1')
                   : undefined
               }}
             >
