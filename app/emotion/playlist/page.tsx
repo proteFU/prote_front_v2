@@ -1,11 +1,9 @@
 "use client"
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from "next/image";
-import { usePlayer } from '@/contexts/PlayerContext';
 
-// 감정별 음악 추천 데이터
 const emotionMusic = {
   happy: [
     { id: '1', name: 'Happy', artist: 'Pharrell aWilliams', image: 'https://picsum.photos/300/300?random=11', src: '/music/music1.mp3' },
@@ -59,7 +57,7 @@ const emotionMusic = {
 
 const emotionLabels = {
   happy: 'Happy',
-  anxious: 'Anxious', 
+  anxious: 'Anxious',
   comfortable: 'Comfortable',
   sad: 'Sad',
   nostalgic: 'Nostalgic',
@@ -71,60 +69,47 @@ const emotionLabels = {
 function EmotionPlaylistContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { playPlaylist } = usePlayer();
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
-  const [recommendedMusic, setRecommendedMusic] = useState<Array<{id: string, name: string, artist: string, image: string}>>([]);
+  const [recommendedMusic, setRecommendedMusic] = useState<Array<{ id: string, name: string, artist: string, image: string, src: string }>>([]);
   const [currentPlaying, setCurrentPlaying] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const emotions = searchParams.get('emotions');
     if (emotions) {
       const emotionArray = emotions.split(',');
       setSelectedEmotions(emotionArray);
-      
-      // 감정별 음악 추천
-      const allMusic: Array<{id: string, name: string, artist: string, image: string}> = [];
+
+      const allMusic: Array<{ id: string, name: string, artist: string, image: string, src: string }> = [];
       emotionArray.forEach(emotion => {
         if (emotionMusic[emotion as keyof typeof emotionMusic]) {
           allMusic.push(...emotionMusic[emotion as keyof typeof emotionMusic]);
         }
       });
-      
-      // 중복 제거 및 랜덤하게 섞기
-      const uniqueMusic = allMusic.filter((music, index, self) => 
+
+      const uniqueMusic = allMusic.filter((music, index, self) =>
         index === self.findIndex(m => m.id === music.id)
       );
-      
-      const finalMusic = uniqueMusic.slice(0, 8); // 최대 8곡 추천
+
+      const finalMusic = uniqueMusic.slice(0, 8);
       setRecommendedMusic(finalMusic);
-      
-      // 첫 번째 곡 로드 (자동 재생 비활성화)
-      if (finalMusic.length > 0) {
-        setCurrentPlaying(finalMusic[0].id);
-        // 플레이리스트로 설정하고 첫 번째 곡 로드 (자동 재생 안함)
-        playPlaylist(finalMusic, 0, false);
-      }
     }
-  }, [searchParams, playPlaylist]);
+  }, [searchParams]);
 
   const playMusic = (musicId: string) => {
-    console.log('playMusic 호출됨:', musicId);
     const music = recommendedMusic.find(m => m.id === musicId);
-    if (music) {
-      console.log('음악 찾음:', music);
+    if (music && audioRef.current) {
       setCurrentPlaying(musicId);
-      const musicIndex = recommendedMusic.findIndex(m => m.id === musicId);
-      console.log('플레이리스트 재생 시작:', musicIndex);
-       playPlaylist(recommendedMusic, musicIndex, true); // 사용자 클릭이므로 자동 재생 허용
-    } else {
-      console.log('음악을 찾을 수 없음:', musicId);
+      audioRef.current.src = music.src;
+      audioRef.current.play();
     }
   };
 
   const playAll = () => {
-    if (recommendedMusic.length > 0) {
+    if (recommendedMusic.length > 0 && audioRef.current) {
       setCurrentPlaying(recommendedMusic[0].id);
-      playPlaylist(recommendedMusic, 0, true); // 사용자가 클릭했으므로 자동 재생 허용
+      audioRef.current.src = recommendedMusic[0].src;
+      audioRef.current.play();
     }
   };
 
@@ -134,9 +119,9 @@ function EmotionPlaylistContent() {
 
   return (
     <div className="min-h-screen p-4">
-      {/* Header */}
+      <audio ref={audioRef} controls className="hidden" />
       <div className="flex items-center gap-4 mb-8">
-        <button 
+        <button
           onClick={goBack}
           className="w-8 h-8 flex items-center justify-center"
         >
@@ -147,7 +132,6 @@ function EmotionPlaylistContent() {
         </h1>
       </div>
 
-      {/* Featured Playlist */}
       <div className="flex items-center gap-4 mb-8">
         <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
           <span className="text-4xl">🎵</span>
@@ -159,7 +143,7 @@ function EmotionPlaylistContent() {
           <p className="text-gray-300 text-sm mb-4">
             {recommendedMusic.length} Songs • Based on your emotions
           </p>
-          <button 
+          <button
             onClick={playAll}
             className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg flex items-center gap-2 transition-colors"
           >
@@ -169,23 +153,21 @@ function EmotionPlaylistContent() {
         </div>
       </div>
 
-      {/* Songs Section */}
       <div className="mb-6">
         <h3 className="text-xl font-bold text-white mb-4">Recommended Songs</h3>
         <div className="space-y-3">
           {recommendedMusic.map((music, index) => (
             <div
               key={music.id}
-              className={`flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${
-                currentPlaying === music.id 
-                  ? 'bg-purple-600/30 ring-2 ring-purple-500' 
+              className={`flex items-center gap-4 p-4 rounded-lg transition-all duration-300 ${currentPlaying === music.id
+                  ? 'bg-purple-600/30 ring-2 ring-purple-500'
                   : 'bg-white/10 hover:bg-white/20'
-              }`}
+                }`}
             >
               <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold flex-shrink-0">
                 {index + 1}
               </div>
-              <div 
+              <div
                 className="w-16 h-16 bg-white rounded-lg overflow-hidden flex-shrink-0 cursor-pointer"
                 onClick={() => playMusic(music.id)}
               >
@@ -197,14 +179,11 @@ function EmotionPlaylistContent() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div 
-                className="flex-1 cursor-pointer"
-                onClick={() => router.push(`/music/${music.id}`)}
-              >
+              <div className="flex-1">
                 <h4 className="font-semibold text-white hover:text-purple-300 transition-colors">{music.name}</h4>
                 <p className="text-gray-300 text-sm">{music.artist}</p>
               </div>
-              <div 
+              <div
                 className="w-10 h-10 flex items-center justify-center cursor-pointer"
                 onClick={() => playMusic(music.id)}
               >
@@ -220,8 +199,6 @@ function EmotionPlaylistContent() {
           ))}
         </div>
       </div>
-
-      {/* Back to Emotion Selection */}
       <div className="text-center">
         <button
           onClick={goBack}
