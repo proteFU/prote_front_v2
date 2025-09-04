@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
-import CrystalBallCanvas from "@/components/CrystalBall";
 // const profileImage = `https://picsum.photos/300/300?random=200`;
 
 // 감정 데이터
@@ -41,10 +40,6 @@ export default function Emotion() {
     router.push(`/emotion/playlist?emotions=${emotionsParam}`);
   };
 
-  const glowColors = emotions
-    .filter(e => selectedEmotions.includes(e.id))
-    .map(e => e.color);
-
   return (
     <div className="flex flex-col p-2 overflow-hidden" style={{ height: 'calc(80vh - 4rem)' }}>
       <div className="flex-shrink-0">
@@ -52,12 +47,17 @@ export default function Emotion() {
       </div>
 
       {/* 3D 수정 구슬 */}
-      <div className="flex-1 flex items-start justify-center relative min-h-0">
-        <CrystalBallCanvas
-          className="w-full h-full -translate-y-10"
-          modelPath="/CrystalBall/crystal_ball.glb"
-          glowColors={glowColors}
+      <div className="flex-1 flex items-center justify-center relative min-h-0">
+        <Image src="/CrystalBall.png"
+        alt="Crystal Ball" width={120} height={120}
+        className="w-28 h-28 z-10 object-contain"
         />
+        {selectedEmotions.map((emotionId) => {
+          const emotion = emotions.find(e => e.id === emotionId);
+          return emotion ? (
+            <div key={emotionId} className="w-20 h-20 absolute top-5% left-50% rounded-full blur-2xl opacity-60" style={{ backgroundColor: emotion.color }} />
+          ) : null;
+        })}
       </div>
 
       {/* 감정 선택 버튼들 */}
