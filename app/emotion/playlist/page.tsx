@@ -8,52 +8,52 @@ import { usePlayer } from '@/contexts/PlayerContext';
 // 감정별 음악 추천 데이터
 const emotionMusic = {
   happy: [
-    { id: '1', name: 'Happy', artist: 'Pharrell Williams', image: 'https://picsum.photos/300/300?random=11' },
-    { id: '2', name: 'Can\'t Stop the Feeling!', artist: 'Justin Timberlake', image: 'https://picsum.photos/300/300?random=12' },
-    { id: '3', name: 'Good as Hell', artist: 'Lizzo', image: 'https://picsum.photos/300/300?random=13' },
-    { id: '4', name: 'Sunflower', artist: 'Post Malone & Swae Lee', image: 'https://picsum.photos/300/300?random=14' }
+    { id: '1', name: 'Happy', artist: 'Pharrell aWilliams', image: 'https://picsum.photos/300/300?random=11', src: '/music/music1.mp3' },
+    { id: '2', name: 'Can\'t Stop the Feeling!', artist: 'Justin Timberlake', image: 'https://picsum.photos/300/300?random=12', src: '/music/music2.mp3' },
+    { id: '3', name: 'Good as Hell', artist: 'Lizzo', image: 'https://picsum.photos/300/300?random=13', src: '/music/music3.mp3' },
+    { id: '4', name: 'Sunflower', artist: 'Post Malone & Swae Lee', image: 'https://picsum.photos/300/300?random=14', src: '/music/music4.mp3' }
   ],
   anxious: [
-    { id: '5', name: 'Breathe', artist: 'Pink Floyd', image: 'https://i.pinimg.com/736x/12/db/a2/12dba21bc2b2e60dac71571451537c57.jpg' },
-    { id: '6', name: 'Weightless', artist: 'Marconi Union', image: 'https://picsum.photos/300/300?random=16' },
-    { id: '7', name: 'Calm Down', artist: 'Rema', image: 'https://picsum.photos/300/300?random=17' },
-    { id: '8', name: 'Peaceful', artist: 'Enya', image: 'https://picsum.photos/300/300?random=18' }
+    { id: '5', name: 'Breathe', artist: 'Pink Floyd', image: 'https://i.pinimg.com/736x/12/db/a2/12dba21bc2b2e60dac71571451537c57.jpg', src: '/music/music5.mp3' },
+    { id: '6', name: 'Weightless', artist: 'Marconi Union', image: 'https://picsum.photos/300/300?random=16', src: '/music/music6.mp3' },
+    { id: '7', name: 'Calm Down', artist: 'Rema', image: 'https://picsum.photos/300/300?random=17', src: '/music/music7.mp3' },
+    { id: '8', name: 'Peaceful', artist: 'Enya', image: 'https://picsum.photos/300/300?random=18', src: '/music/music8.mp3' }
   ],
   comfortable: [
-    { id: '9', name: 'Perfect', artist: 'Ed Sheeran', image: 'https://picsum.photos/300/300?random=19' },
-    { id: '10', name: 'All of Me', artist: 'John Legend', image: 'https://picsum.photos/300/300?random=20' },
-    { id: '11', name: 'Thinking Out Loud', artist: 'Ed Sheeran', image: 'https://picsum.photos/300/300?random=21' },
-    { id: '12', name: 'A Thousand Years', artist: 'Christina Perri', image: 'https://picsum.photos/300/300?random=22' }
+    { id: '9', name: 'Perfect', artist: 'Ed Sheeran', image: 'https://picsum.photos/300/300?random=19', src: '/music/music9.mp3' },
+    { id: '10', name: 'All of Me', artist: 'John Legend', image: 'https://picsum.photos/300/300?random=20', src: '/music/music10.mp3' },
+    { id: '11', name: 'Thinking Out Loud', artist: 'Ed Sheeran', image: 'https://picsum.photos/300/300?random=21', src: '/music/music11.mp3' },
+    { id: '12', name: 'A Thousand Years', artist: 'Christina Perri', image: 'https://picsum.photos/300/300?random=22', src: '/music/music12.mp3' }
   ],
   sad: [
-    { id: '13', name: 'Someone You Loved', artist: 'Lewis Capaldi', image: 'https://picsum.photos/300/300?random=23' },
-    { id: '14', name: 'All Too Well', artist: 'Taylor Swift', image: 'https://picsum.photos/300/300?random=24' },
-    { id: '15', name: 'Hurt', artist: 'Johnny Cash', image: 'https://picsum.photos/300/300?random=25' },
-    { id: '16', name: 'Mad World', artist: 'Gary Jules', image: 'https://picsum.photos/300/300?random=26' }
+    { id: '13', name: 'Someone You Loved', artist: 'Lewis Capaldi', image: 'https://picsum.photos/300/300?random=23', src: '/music/music13.mp3' },
+    { id: '14', name: 'All Too Well', artist: 'Taylor Swift', image: 'https://picsum.photos/300/300?random=24', src: '/music/music14.mp3' },
+    { id: '15', name: 'Hurt', artist: 'Johnny Cash', image: 'https://picsum.photos/300/300?random=25', src: '/music/music15.mp3' },
+    { id: '16', name: 'Mad World', artist: 'Gary Jules', image: 'https://picsum.photos/300/300?random=26', src: '/music/music16.mp3' }
   ],
   nostalgic: [
-    { id: '17', name: 'Bohemian Rhapsody', artist: 'Queen', image: 'https://picsum.photos/300/300?random=27' },
-    { id: '18', name: 'Hotel California', artist: 'Eagles', image: 'https://picsum.photos/300/300?random=28' },
-    { id: '19', name: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', image: 'https://picsum.photos/300/300?random=29' },
-    { id: '20', name: 'Don\'t Stop Believin\'', artist: 'Journey', image: 'https://picsum.photos/300/300?random=30' }
+    { id: '17', name: 'Bohemian Rhapsody', artist: 'Queen', image: 'https://picsum.photos/300/300?random=27', src: '/music/music17.mp3' },
+    { id: '18', name: 'Hotel California', artist: 'Eagles', image: 'https://picsum.photos/300/300?random=28', src: '/music/music18.mp3' },
+    { id: '19', name: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', image: 'https://picsum.photos/300/300?random=29', src: '/music/music19.mp3' },
+    { id: '20', name: 'Don\'t Stop Believin\'', artist: 'Journey', image: 'https://picsum.photos/300/300?random=30', src: '/music/music20.mp3' }
   ],
   excited: [
-    { id: '21', name: 'Thunder', artist: 'Imagine Dragons', image: 'https://picsum.photos/300/300?random=31' },
-    { id: '22', name: 'Believer', artist: 'Imagine Dragons', image: 'https://picsum.photos/300/300?random=32' },
-    { id: '23', name: 'Eye of the Tiger', artist: 'Survivor', image: 'https://picsum.photos/300/300?random=33' },
-    { id: '24', name: 'We Will Rock You', artist: 'Queen', image: 'https://picsum.photos/300/300?random=34' }
+    { id: '21', name: 'Thunder', artist: 'Imagine Dragons', image: 'https://picsum.photos/300/300?random=31', src: '/music/music21.mp3' },
+    { id: '22', name: 'Believer', artist: 'Imagine Dragons', image: 'https://picsum.photos/300/300?random=32', src: '/music/music22.mp3' },
+    { id: '23', name: 'Eye of the Tiger', artist: 'Survivor', image: 'https://picsum.photos/300/300?random=33', src: '/music/music23.mp3' },
+    { id: '24', name: 'We Will Rock You', artist: 'Queen', image: 'https://picsum.photos/300/300?random=34', src: '/music/music24.mp3' }
   ],
   remorseful: [
-    { id: '25', name: 'Hurt', artist: 'Johnny Cash', image: 'https://picsum.photos/300/300?random=35' },
-    { id: '26', name: 'Mad World', artist: 'Gary Jules', image: 'https://picsum.photos/300/300?random=36' },
-    { id: '27', name: 'The Sound of Silence', artist: 'Simon & Garfunkel', image: 'https://picsum.photos/300/300?random=37' },
-    { id: '28', name: 'Creep', artist: 'Radiohead', image: 'https://picsum.photos/300/300?random=38' }
+    { id: '25', name: 'Hurt', artist: 'Johnny Cash', image: 'https://picsum.photos/300/300?random=35', src: '/music/music15.mp3' },
+    { id: '26', name: 'Mad World', artist: 'Gary Jules', image: 'https://picsum.photos/300/300?random=36', src: '/music/music16.mp3' },
+    { id: '27', name: 'The Sound of Silence', artist: 'Simon & Garfunkel', image: 'https://picsum.photos/300/300?random=37', src: '/music/music27.mp3' },
+    { id: '28', name: 'Creep', artist: 'Radiohead', image: 'https://picsum.photos/300/300?random=38', src: '/music/music28.mp3' }
   ],
   lonely: [
-    { id: '29', name: 'Lonely', artist: 'Akon', image: 'https://picsum.photos/300/300?random=39' },
-    { id: '30', name: 'The Sound of Silence', artist: 'Simon & Garfunkel', image: 'https://picsum.photos/300/300?random=40' },
-    { id: '31', name: 'Hurt', artist: 'Nine Inch Nails', image: 'https://picsum.photos/300/300?random=41' },
-    { id: '32', name: 'Everybody Hurts', artist: 'R.E.M.', image: 'https://picsum.photos/300/300?random=42' }
+    { id: '29', name: 'Lonely', artist: 'Akon', image: 'https://picsum.photos/300/300?random=39', src: '/music/music29.mp3' },
+    { id: '30', name: 'The Sound of Silence', artist: 'Simon & Garfunkel', image: 'https://picsum.photos/300/300?random=40', src: '/music/music30.mp3' },
+    { id: '31', name: 'Hurt', artist: 'Nine Inch Nails', image: 'https://picsum.photos/300/300?random=41', src: '/music/music31.mp3' },
+    { id: '32', name: 'Everybody Hurts', artist: 'R.E.M.', image: 'https://picsum.photos/300/300?random=42', src: '/music/music32.mp3' }
   ]
 };
 
